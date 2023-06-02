@@ -2,6 +2,7 @@ import 'package:beebeer_app2/common/rounded_small_button.dart';
 import 'package:beebeer_app2/constants/constants.dart';
 import 'package:beebeer_app2/features/auth/view/signup_view.dart';
 import 'package:beebeer_app2/features/auth/widgets/auth_field.dart';
+import 'package:beebeer_app2/features/auth/widgets/pw_field.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +40,26 @@ class _LoginViewState extends State<LoginView> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
+                const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Pallete.pinkColor,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 40),
                 AuthField(
                   controller: emailController,
-                  hintText: 'Email Address',
+                  hintText: 'Your Email Address',
+                  titleText: 'Email Address',
                 ),
-                const SizedBox(height: 25),
-                AuthField(
+                const SizedBox(height: 15),
+                PwField(
                   controller: passwordController,
-                  hintText: 'Password',
+                  hintText: 'Your Password',
+                  titleText: 'Password',
                 ),
                 const SizedBox(height: 40),
                 Align(
@@ -71,12 +84,13 @@ class _LoginViewState extends State<LoginView> {
                         color: Pallete.pinkColor,
                         fontSize: 16,
                       ),
-                      recognizer: TapGestureRecognizer()..onTap = () {
-                        Navigator.push(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
                             context,
                             SignUpView.route(),
                           );
-                      },
+                        },
                     ),
                   ],
                 )),
