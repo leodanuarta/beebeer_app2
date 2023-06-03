@@ -8,7 +8,7 @@ import 'package:beebeer_app2/core/core.dart';
 import 'package:beebeer_app2/core/providers.dart';
 import 'package:beebeer_app2/models/user_model.dart';
 
-final userAPIProvider = provider((ref) {
+final userAPIProvider = Provider((ref) {
   return UserAPI(
     db: ref.watch(appwriteDatabaseProvider),
   );
@@ -16,7 +16,7 @@ final userAPIProvider = provider((ref) {
 
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel);
-  Future<model.Documents> getUserData(String uid);
+  Future<model.Document> getUserData(String uid);
 }
 
 class UserAPI implements IUserAPI {
@@ -29,7 +29,7 @@ class UserAPI implements IUserAPI {
       await _db.createDocument(
         databaseId: AppwriteConstants.databaseId, 
         collectionId: AppwriteConstants.collectionId, 
-        documentId: ID.unique(), 
+        documentId: userModel.uid, 
         data: userModel.toMap(),
       );
       return rigth(null);
