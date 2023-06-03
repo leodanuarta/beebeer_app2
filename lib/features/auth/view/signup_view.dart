@@ -34,87 +34,91 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
 
   void onSignUp() {
     final res = ref.read(authControllerProvider.notifier).signUp(
-      email: emailController.text, 
-      password: passwordController.text, 
-      context: context,
-    );
+          email: emailController.text,
+          password: passwordController.text,
+          context: context,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(authControllerProvider);
+
     return Scaffold(
       appBar: appbar,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Pallete.pinkColor,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                AuthField(
-                  controller: emailController,
-                  hintText: 'Your Email Address',
-                  titleText: 'Email Address',
-                ),
-                const SizedBox(height: 15),
-                PwField(
-                  controller: passwordController,
-                  hintText: 'Your Password',
-                  titleText: 'Password',
-                ),
-                const SizedBox(height: 15),
-                PwField(
-                  controller: passwordController,
-                  hintText: 'Confirm Your Password',
-                  titleText: 'Confirm Password',
-                ),
-                const SizedBox(height: 40),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: RoundedSmallButton(
-                    onTap: onSignUp,
-                    label: 'Done',
-                  ),
-                ),
-                const SizedBox(height: 40),
-                RichText(
-                    text: TextSpan(
-                  text: "Already have an account? ",
-                  style: const TextStyle(
-                    color: Pallete.backgroundColor,
-                    fontSize: 16,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Login',
-                      style: const TextStyle(
-                        color: Pallete.pinkColor,
-                        fontSize: 16,
+      body: isLoading
+          ? const Loader()
+          : Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Pallete.pinkColor,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            LoginView.route(),
-                          );
-                        },
-                    ),
-                  ],
-                )),
-              ],
+                      const SizedBox(height: 40),
+                      AuthField(
+                        controller: emailController,
+                        hintText: 'Your Email Address',
+                        titleText: 'Email Address',
+                      ),
+                      const SizedBox(height: 15),
+                      PwField(
+                        controller: passwordController,
+                        hintText: 'Your Password',
+                        titleText: 'Password',
+                      ),
+                      const SizedBox(height: 15),
+                      PwField(
+                        controller: passwordController,
+                        hintText: 'Confirm Your Password',
+                        titleText: 'Confirm Password',
+                      ),
+                      const SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: RoundedSmallButton(
+                          onTap: onSignUp,
+                          label: 'Done',
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      RichText(
+                          text: TextSpan(
+                        text: "Already have an account? ",
+                        style: const TextStyle(
+                          color: Pallete.backgroundColor,
+                          fontSize: 16,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Login',
+                            style: const TextStyle(
+                              color: Pallete.pinkColor,
+                              fontSize: 16,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  LoginView.route(),
+                                );
+                              },
+                          ),
+                        ],
+                      )),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
