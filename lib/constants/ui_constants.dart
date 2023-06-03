@@ -12,4 +12,10 @@ class UIConstants {
       centerTitle: true,
     );
   }
+
+  static List<Widget> bottomTabBarPages = [
+    Text('Feed Screen'),
+    Text('Search Screen'),
+    Text('Notification Screen'),
+  ];
 }

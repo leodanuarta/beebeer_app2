@@ -16,18 +16,37 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  int _page = 0;
   final appBar = UIConstants.appBar();
+
+  void onPageChange(int index) {
+    setState(() {
+      _page = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
+      body: IndexedStack(
+        index: _page,
+        children: UIConstants.bottomTabBarPages,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: CupertinoTabBar(
+        currentIndex: _page,
+        onTap: onPageChange,
         backgroundColor: Pallete.backgroundColor,
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              AssetsConstants.homeFilledIcon,
+              _page == 0
+                  ? AssetsConstants.homeFilledIcon
+                  : AssetsConstants.homeOutlinedIcon,
               // color: Pallete.whiteColor,
             ),
           ),
@@ -39,7 +58,9 @@ class _HomeViewState extends State<HomeView> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              AssetsConstants.notifFilledIcon,
+              _page == 2
+                  ? AssetsConstants.notifFilledIcon
+                  : AssetsConstants.notifOutlinedIcon,
               // color: Pallete.whiteColor,
             ),
           ),
