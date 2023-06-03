@@ -23,7 +23,11 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.theme,
       home: ref.watch(currentUserAccountProvider).when(
           data: (user) {
-            print(user!.email);
+            // console log user email after signup
+            // print(user!.email);
+
+            // if user already login this app can remember the user id
+            // then the user dont login again, it can direct you to the homescreen view
             // if (user != null) {
             //   return const HomeView();
             // }
