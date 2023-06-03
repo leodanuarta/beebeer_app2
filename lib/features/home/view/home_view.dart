@@ -1,4 +1,5 @@
 import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/features/tweet/view/create_tweet_view.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,10 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  onCreateTweet() {
+    Navigator.push(context, CreateTweetScreen.route());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
         children: UIConstants.bottomTabBarPages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: onCreateTweet,
         child: const Icon(
           Icons.add,
           color: Pallete.whiteColor,
