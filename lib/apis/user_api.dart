@@ -3,10 +3,10 @@ import 'package:appwrite/models.dart' as model;
 import 'package:beebeer_app2/constants/appwrite_constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-// import 'package:twitter_clone/constants/constants.dart';
-// import 'package:twitter_clone/core/core.dart';
-// import 'package:twitter_clone/core/providers.dart';
-// import 'package:twitter_clone/models/user_model.dart';
+import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/core/core.dart';
+import 'package:beebeer_app2/core/providers.dart';
+import 'package:beebeer_app2/models/user_model.dart';
 
 final userAPIProvider = provider((ref) {
   return UserAPI(
