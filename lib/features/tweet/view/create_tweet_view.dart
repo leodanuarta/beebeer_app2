@@ -32,6 +32,17 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
     tweetTextController.dispose();
   }
 
+  // void shareTweet() {
+  //   ref.read(tweetControllerProvider.notifier).shareTweet(
+  //         images: images,
+  //         text: tweetTextController.text,
+  //         context: context,
+  //         repliedTo: '',
+  //         repliedToUserId: '',
+  //       );
+  //   Navigator.pop(context);
+  // }
+
   void onPickImages() async {
     images = await pickImages();
     setState(() {});
@@ -40,6 +51,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
+    // final isLoading = ref.watch(tweetControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,13 +59,17 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.close, size: 30),
+          icon: const Icon(
+            Icons.close,
+            size: 30,
+            color: Pallete.pinkColor,
+          ),
         ),
         actions: [
           RoundedSmallButton(
             onTap: () {},
-            label: 'Tweet',
-            backgroundColor: Pallete.blueColor,
+            label: 'Beepost',
+            backgroundColor: Pallete.pinkColor,
             textColor: Pallete.whiteColor,
           ),
         ],
@@ -80,9 +96,10 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                             decoration: const InputDecoration(
                               hintText: "What's happening?",
                               hintStyle: TextStyle(
-                                  color: Pallete.greyColor,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600),
+                                color: Pallete.greyColor,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
                               border: InputBorder.none,
                             ),
                             maxLines: null,
@@ -115,11 +132,13 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(bottom: 10),
         decoration: const BoxDecoration(
-            border: Border(
-                top: BorderSide(
-          color: Pallete.greyColor,
-          width: 0.3,
-        ))),
+          border: Border(
+            top: BorderSide(
+              color: Pallete.greyColor,
+              width: 0.3,
+            ),
+          ),
+        ),
         child: Row(
           children: [
             Padding(
@@ -128,22 +147,26 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                 right: 15,
               ),
               child: GestureDetector(
-                  onTap: onPickImages,
-                  child: SvgPicture.asset(AssetsConstants.galleryIcon)),
+                onTap: onPickImages,
+                child: SvgPicture.asset(AssetsConstants.galleryIcon,
+                    color: Pallete.pinkColor),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0).copyWith(
                 left: 15,
                 right: 15,
               ),
-              child: SvgPicture.asset(AssetsConstants.gifIcon),
+              child: SvgPicture.asset(AssetsConstants.gifIcon,
+                  color: Pallete.pinkColor),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0).copyWith(
                 left: 15,
                 right: 15,
               ),
-              child: SvgPicture.asset(AssetsConstants.emojiIcon),
+              child: SvgPicture.asset(AssetsConstants.emojiIcon,
+                  color: Pallete.pinkColor),
             ),
           ],
         ),

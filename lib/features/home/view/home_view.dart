@@ -3,7 +3,6 @@ import 'package:beebeer_app2/features/tweet/view/create_tweet_view.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeView extends StatefulWidget {
@@ -49,20 +48,20 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChange,
-        backgroundColor: Pallete.backgroundColor,
+        backgroundColor: Pallete.whiteColor,
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               _page == 0
                   ? AssetsConstants.homeFilledIcon
                   : AssetsConstants.homeOutlinedIcon,
-              // color: Pallete.whiteColor,
+              color: Pallete.pinkColor,
             ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AssetsConstants.searchIcon,
-              // color: Pallete.whiteColor,
+              color: Pallete.pinkColor,
             ),
           ),
           BottomNavigationBarItem(
@@ -70,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
               _page == 2
                   ? AssetsConstants.notifFilledIcon
                   : AssetsConstants.notifOutlinedIcon,
-              // color: Pallete.whiteColor,
+              color: Pallete.pinkColor,
             ),
           ),
         ],
