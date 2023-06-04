@@ -19,6 +19,7 @@ abstract class IUserAPI {
 class UserAPI implements IUserAPI {
   final Databases _db;
   UserAPI({required Databases db}) : _db = db;
+  
   @override
   FutureEitherVoid saveUserData(UserModel userModel) async {
     try {
