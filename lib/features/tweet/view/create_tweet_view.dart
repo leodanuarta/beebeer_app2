@@ -4,11 +4,11 @@ import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/constants/assets_constants.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
+import 'package:beebeer_app2/theme/pallete.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:beebeer_app2/theme/pallete.dart';
 
 class CreateTweetScreen extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
@@ -31,7 +31,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
     tweetTextController.dispose();
   }
 
-  void onPickImages() async{
+  void onPickImages() async {
     images = await pickImages();
     setState(() {});
   }
@@ -79,10 +79,9 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                             decoration: const InputDecoration(
                               hintText: "What's happening?",
                               hintStyle: TextStyle(
-                                color: Pallete.greyColor
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600
-                              ),
+                                  color: Pallete.greyColor,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600),
                               border: InputBorder.none,
                             ),
                             maxLines: null,
@@ -97,13 +96,11 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(bottom: 10),
         decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Pallete.greyColor
-              width: 0.3,
-            )
-          )
-        ),
+            border: Border(
+                top: BorderSide(
+          color: Pallete.greyColor,
+          width: 0.3,
+        ))),
         child: Row(
           children: [
             Padding(
@@ -112,9 +109,8 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                 right: 15,
               ),
               child: GestureDetector(
-                onTap: onPickImages, 
-                child: SvgPicture.asset(AssetsConstants.galleryIcon)
-              ),
+                  onTap: onPickImages,
+                  child: SvgPicture.asset(AssetsConstants.galleryIcon)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0).copyWith(

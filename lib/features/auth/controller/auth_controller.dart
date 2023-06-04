@@ -21,6 +21,18 @@ final currentUserAccountProvider = FutureProvider((ref) {
   return authController.currentUser();
 });
 
+final userDetailsProvider = FutureProvider.family((ref, String uid) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
+});
+
+// Page Number = 19
+final currentUserDetailsProvider = FutureProvider((ref) {
+  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+  return userDetails.value;
+});
+
 class AuthController extends StateNotifier<bool> {
   final AuthAPI _authAPI;
   final UserAPI _userAPI;
@@ -75,23 +87,14 @@ class AuthController extends StateNotifier<bool> {
       password: password,
     );
     state = false;
-    res.fold((l) => showSnackBar(context, l.message), (r) {
-      showSnackBar(context, 'Login Successfully');
-      Navigator.push(context, HomeView.route());
-    });
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) {
+        showSnackBar(context, 'Login Successfully');
+        Navigator.push(context, HomeView.route());
+      },
+    );
   }
-
-  // Page Number = 19
-  final currentUserDetailsProvider = FutureProvider((ref) {
-    final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
-    final userDetails = ref.watch(userDetailsProvider(currentUserId));
-    return userDetails.value;
-  });
-
-  final userDetailsProvider = FutureProvider.family((ref, String uid) {
-    final authController = ref.watch(authControllerProvider.notifier);
-    return authController.getUserData(uid);
-  });
 
 // Page Number paling akhir
   Future<UserModel> getUserData(String uid) async {

@@ -39,4 +39,6 @@ class UserAPI implements IUserAPI {
       return left(Failure(e.toString(), st));
     }
   }
+
+  getUserData(String uid) {}
 }
