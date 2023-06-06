@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beebeer_app2/apis/tweet_api.dart';
 import 'package:beebeer_app2/core/enums/tweet_type_enum.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
@@ -7,10 +8,23 @@ import 'package:beebeer_app2/models/tweet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final tweetControllerProvider = StateNotifierProvider<TweetController, bool>(
+  (ref) {
+    return TweetController(
+      ref: ref,
+      tweetAPI: ref.watch(tweetAPIProvider),
+    );
+  },
+);
+
 class TweetController extends StateNotifier<bool> {
+  final TweetAPI _tweetAPI;
   final Ref _ref;
-  TweetController({required Ref ref})
-      : _ref = ref,
+  TweetController({
+    required Ref ref,
+    required TweetAPI tweetAPI,
+  })  : _ref = ref,
+        _tweetAPI = tweetAPI,
         super(false);
 
   void shareTweet({
@@ -46,7 +60,7 @@ class TweetController extends StateNotifier<bool> {
   void _shareTextTweet({
     required String text,
     required BuildContext context,
-  }) {
+  }) async {
     state = true;
     final hashtags = _getHashtagsFromText(text);
     String link = _getLinkFromText(text);
@@ -55,15 +69,17 @@ class TweetController extends StateNotifier<bool> {
       text: text,
       hashtags: hashtags,
       link: link,
-      imageLinks: [],
+      imageLinks: const [],
       uid: user.uid,
       tweetType: TweetType.text,
       tweetedAt: DateTime.now(),
-      likes: [],
-      commentIds: [],
+      likes: const [],
+      commentIds: const [],
       id: '',
       reshareCount: 0,
     );
+    final res = await _tweetAPI.shareTweet(tweet);
+    res.fold((l) => showSnackBar(context, l.message), (r) => null);
   }
 
   String _getLinkFromText(String text) {
