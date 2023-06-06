@@ -4,6 +4,7 @@ import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/constants/assets_constants.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
+import 'package:beebeer_app2/features/tweet/controller/tweet_controller.dart';
 import 'package:beebeer_app2/theme/pallete.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -32,6 +33,13 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
     tweetTextController.dispose();
   }
 
+  void shareTweet() {
+    ref.read(tweetControllerProvider.notifier).shareTweet(
+          images: images,
+          text: tweetTextController.text,
+          context: context,
+        );
+  }
   // void shareTweet() {
   //   ref.read(tweetControllerProvider.notifier).shareTweet(
   //         images: images,
@@ -51,7 +59,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
-    // final isLoading = ref.watch(tweetControllerProvider);
+    final isLoading = ref.watch(tweetControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +82,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           ),
         ],
       ),
-      body: currentUser == null
+      body: isLoading || currentUser == null
           ? const Loader()
           : SafeArea(
               child: SingleChildScrollView(
