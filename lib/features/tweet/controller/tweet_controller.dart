@@ -79,12 +79,11 @@ class TweetController extends StateNotifier<bool> {
       reshareCount: 0,
     );
     final res = await _tweetAPI.shareTweet(tweet);
+    state = false;
     res.fold((l) => showSnackBar(context, l.message), (r) => null);
   }
 
   String _getLinkFromText(String text) {
-    // Misal link yutub si Rivaan
-    // [Rivaan, Ranawat, YouTube, link start with www.]
     String link = '';
     List<String> wordInSentence = text.split(' ');
     for (String word in wordInSentence) {

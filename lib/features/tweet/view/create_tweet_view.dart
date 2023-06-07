@@ -75,7 +75,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
         ),
         actions: [
           RoundedSmallButton(
-            onTap: () {},
+            onTap: shareTweet,
             label: 'Beepost',
             backgroundColor: Pallete.pinkColor,
             textColor: Pallete.whiteColor,
