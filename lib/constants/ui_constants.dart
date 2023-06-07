@@ -1,4 +1,5 @@
 import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/features/tweet/widgets/tweet_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,8 +14,8 @@ class UIConstants {
     );
   }
 
-  static List<Widget> bottomTabBarPages = [
-    Text('Feed Screen'),
+  static const List<Widget> bottomTabBarPages = [
+    TweetList(),
     Text('Search Screen'),
     Text('Notification Screen'),
   ];
