@@ -82,7 +82,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           ),
         ],
       ),
-      body: isLoading || currentUser == null
+      body: isLoading || currentUser != null
           ? const Loader()
           : SafeArea(
               child: SingleChildScrollView(
@@ -91,7 +91,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage(currentUser.profilePic),
+                          // backgroundImage: NetworkImage(currentUser.profilePic),
                           radius: 30,
                         ),
                         const SizedBox(width: 15),

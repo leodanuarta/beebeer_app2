@@ -1,6 +1,7 @@
 import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
 import 'package:beebeer_app2/features/auth/view/signup_view.dart';
+import 'package:beebeer_app2/features/home/view/home_view.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,9 +29,9 @@ class MyApp extends ConsumerWidget {
 
             // if user already login this app can remember the user id
             // then the user dont login again, it can direct you to the homescreen view
-            // if (user != null) {
-            //   return const HomeView();
-            // }
+            if (user != null) {
+              return const HomeView();
+            }
             return const SignUpView();
           },
           error: (error, st) => ErrorPager(error: error.toString()),
