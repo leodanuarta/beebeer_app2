@@ -1,66 +1,40 @@
-import 'package:beebeer_app2/theme/app_theme.dart';
+import 'package:beebeer_app2/common/common.dart';
+import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
+import 'package:beebeer_app2/features/auth/view/signup_view.dart';
+import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Beebeer',
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       theme: AppTheme.theme,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+      home: ref.watch(currentUserAccountProvider).when(
+          data: (user) {
+            // console log user email after signup
+            // print(user!.email);
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+            // if user already login this app can remember the user id
+            // then the user dont login again, it can direct you to the homescreen view
+            // if (user != null) {
+            //   return const HomeView();
+            // }
+            return const SignUpView();
+          },
+          error: (error, st) => ErrorPager(error: error.toString()),
+          loading: () => const LoadingPage()),
     );
   }
 }
