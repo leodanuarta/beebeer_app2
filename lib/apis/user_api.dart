@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart' as model;
 import 'package:beebeer_app2/constants/constants.dart';
 import 'package:beebeer_app2/core/core.dart';
 import 'package:beebeer_app2/core/providers.dart';
@@ -14,19 +15,20 @@ final userAPIProvider = Provider((ref) {
 
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel);
+  Future<model.Document> getUserData(String uid);
 }
 
 class UserAPI implements IUserAPI {
   final Databases _db;
   UserAPI({required Databases db}) : _db = db;
-  
+
   @override
   FutureEitherVoid saveUserData(UserModel userModel) async {
     try {
       await _db.createDocument(
           databaseId: AppwriteConstants.databaseId,
           collectionId: AppwriteConstants.usersCollection,
-          documentId: ID.unique(),
+          documentId: userModel.uid,
           data: userModel.toMap());
       return right(null);
     } on AppwriteException catch (e, st) {
@@ -41,5 +43,13 @@ class UserAPI implements IUserAPI {
     }
   }
 
-  getUserData(String uid) {}
+  @override
+  Future<model.Document> getUserData(String uid) {
+    return _db.getDocument(
+      databaseId: AppwriteConstants.databaseId,
+      collectionId: AppwriteConstants.usersCollection,
+      documentId: uid,
+    );
+  }
+  // getUserData(String uid) {}
 }
