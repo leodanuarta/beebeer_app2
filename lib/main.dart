@@ -1,6 +1,7 @@
 import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
 import 'package:beebeer_app2/features/auth/view/signup_view.dart';
+import 'package:beebeer_app2/features/auth/view/welcome_view.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,16 +22,17 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.theme,
-      home: ref.watch(currentUserAccountProvider).when(
-          data: (user) {
-            print(user!.email);
-            // if (user != null) {
-            //   return const HomeView();
-            // }
-            return const SignUpView();
-          },
-          error: (error, st) => ErrorPager(error: error.toString()),
-          loading: () => const LoadingPage()),
+      // home: ref.watch(currentUserAccountProvider).when(
+      //     data: (user) {
+      //       print(user!.email);
+      //       // if (user != null) {
+      //       //   return const HomeView();
+      //       // }
+      //       return const SignUpView();
+      //     },
+      //     error: (error, st) => ErrorPager(error: error.toString()),
+      //     loading: () => const LoadingPage()),
+      home: const WelcomeView(),
     );
   }
 }

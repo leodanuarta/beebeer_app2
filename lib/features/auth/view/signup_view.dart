@@ -23,6 +23,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   final appbar = UIConstants.appBar();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -42,6 +43,11 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
+    final _password = '';
+    final _confirmPassword = '';
+
+    final _formKey = GlobalKey<FormState>();
+
     final isLoading = ref.watch(authControllerProvider);
 
     return Scaffold(
@@ -52,69 +58,74 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Pallete.pinkColor,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                      AuthField(
-                        controller: emailController,
-                        hintText: 'Your Email Address',
-                        titleText: 'Email Address',
-                      ),
-                      const SizedBox(height: 15),
-                      PwField(
-                        controller: passwordController,
-                        hintText: 'Your Password',
-                        titleText: 'Password',
-                      ),
-                      const SizedBox(height: 15),
-                      PwField(
-                        controller: passwordController,
-                        hintText: 'Confirm Your Password',
-                        titleText: 'Confirm Password',
-                      ),
-                      const SizedBox(height: 40),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: RoundedSmallButton(
-                          onTap: onSignUp,
-                          label: 'Done',
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                      RichText(
-                          text: TextSpan(
-                        text: "Already have an account? ",
-                        style: const TextStyle(
-                          color: Pallete.backgroundColor,
-                          fontSize: 16,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'Login',
-                            style: const TextStyle(
-                              color: Pallete.pinkColor,
-                              fontSize: 16,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  LoginView.route(),
-                                );
-                              },
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: Pallete.pinkColor,
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      )),
-                    ],
+                        ),
+                        const SizedBox(height: 40),
+                        AuthField(
+                          controller: emailController,
+                          hintText: 'Your Email Address',
+                          titleText: 'Email Address',
+                        ),
+                        const SizedBox(height: 15),
+                        PwField(
+                          controller: passwordController,
+                          hintText: 'Your Password',
+                          titleText: 'Password',
+                          
+                          
+                        ),
+                        const SizedBox(height: 15),
+                        PwField(
+                          controller: confirmPasswordController,
+                          hintText: 'Confirm Your Password',
+                          titleText: 'Confirm Password',
+                        ),
+                        const SizedBox(height: 40),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: RoundedSmallButton(
+                            onTap: onSignUp,
+                            label: 'Done',
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        RichText(
+                            text: TextSpan(
+                          text: "Already have an account? ",
+                          style: const TextStyle(
+                            color: Pallete.backgroundColor,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Login',
+                              style: const TextStyle(
+                                color: Pallete.pinkColor,
+                                fontSize: 16,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    LoginView.route(),
+                                  );
+                                },
+                            ),
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ),
