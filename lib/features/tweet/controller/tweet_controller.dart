@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:beebeer_app2/apis/storage_api.dart';
 import 'package:beebeer_app2/apis/tweet_api.dart';
 import 'package:beebeer_app2/core/enums/tweet_type_enum.dart';
@@ -61,6 +62,33 @@ class TweetController extends StateNotifier<bool> {
     final res = await _tweetAPI.likeTweet(tweet);
     res.fold((l) => null, (r) => null);
   }
+  
+  void reshareTweet(
+    Tweet tweet, 
+    UserModel currentUser, 
+    BuildContext context
+    ) async {
+    tweet = tweet.copyWith(
+      retweetedBy: currentUser.name, 
+      likes: [],
+      commentIds: [],
+      reshareCount: tweet.reshareCount + 1,
+    );
+
+    final res = await _tweetAPI.updateReshareCount(tweet);
+    res.fold(
+      (l) => showSnackBar(context, l.message), 
+      (r) async {
+        tweet = tweet.copyWith(
+          id: ID.unique(),
+          reshareCount: 0,
+          tweetedAt: DateTime.now(),
+        );
+        final res2 = await _tweetAPI.shareTweet(tweet);
+        res2.fold((l) => showSnackBar(context, l.message), (r) => showSnackBar(context, 'Retweeted!'));
+      }
+    );
+  }
 
   void shareTweet({
     required List<File> images,
@@ -108,6 +136,7 @@ class TweetController extends StateNotifier<bool> {
       commentIds: const [],
       id: '',
       reshareCount: 0,
+      retweetedBy: '',
     );
     final res = await _tweetAPI.shareTweet(tweet);
     state = false;
@@ -134,6 +163,7 @@ class TweetController extends StateNotifier<bool> {
       commentIds: const [],
       id: '',
       reshareCount: 0,
+      retweetedBy: '',
     );
     final res = await _tweetAPI.shareTweet(tweet);
     state = false;
