@@ -93,7 +93,8 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(currentUser.profilePic),
-                          // backgroundImage: NetworkImage('https://nationaltoday.com/wp-content/uploads/2020/02/doggy-date-night.jpg.webp'),
+                          // backgroundImage: NetworkImage(
+                          //     'https://nationaltoday.com/wp-content/uploads/2020/02/doggy-date-night.jpg.webp'),
                           radius: 30,
                         ),
                         const SizedBox(width: 15),
