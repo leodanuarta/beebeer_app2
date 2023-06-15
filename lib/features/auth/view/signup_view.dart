@@ -1,9 +1,9 @@
 import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
 import 'package:beebeer_app2/features/auth/view/login_view.dart';
 import 'package:beebeer_app2/features/auth/widgets/auth_field.dart';
-import 'package:beebeer_app2/features/auth/widgets/pw_field.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -34,99 +34,96 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   }
 
   void onSignUp() {
-    final res = ref.read(authControllerProvider.notifier).signUp(
-          email: emailController.text,
-          password: passwordController.text,
-          context: context,
-        );
+    if (passwordController.text != confirmPasswordController.text) {
+      showSnackBar(context, "Password does not match. Please re-type again.");
+    } else {
+      final res = ref.read(authControllerProvider.notifier).signUp(
+            email: emailController.text,
+            password: passwordController.text,
+            context: context,
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final _password = '';
-    final _confirmPassword = '';
-
-    final _formKey = GlobalKey<FormState>();
-
     final isLoading = ref.watch(authControllerProvider);
 
     return Scaffold(
       appBar: appbar,
       body: isLoading
           ? const Loader()
-          : Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
+          : SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Create New Account',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 40,
+                        color: Pallete.pinkColor,
+                        fontFamily: 'Raleway',
+                      ),
+                    ),
+                    const SizedBox(height: 45),
+                    AuthField(
+                      controller: emailController,
+                      hintText: 'Your Email',
+                      titleText: 'Email Address',
+                      isPassword: false,
+                    ),
+                    const SizedBox(height: 10),
+                    AuthField(
+                      controller: passwordController,
+                      hintText: 'Your Password',
+                      titleText: 'Password',
+                      isPassword: true,
+                    ),
+                    const SizedBox(height: 10),
+                    AuthField(
+                      controller: confirmPasswordController,
+                      hintText: 'Confirm Your Password',
+                      titleText: 'Confirm Password',
+                      isPassword: true,
+                    ),
+                    const SizedBox(height: 40),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: RoundedSmallButton(
+                        onTap: onSignUp,
+                        label: 'Sign Up',
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    RichText(
+                        text: TextSpan(
+                      text: "Already have an account? ",
+                      style: const TextStyle(
+                        color: Pallete.backgroundColor,
+                        fontSize: 16,
+                      ),
                       children: [
-                        const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 40,
-                            color: Pallete.pinkColor,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        AuthField(
-                          controller: emailController,
-                          hintText: 'Your Email Address',
-                          titleText: 'Email Address',
-                        ),
-                        const SizedBox(height: 15),
-                        PwField(
-                          controller: passwordController,
-                          hintText: 'Your Password',
-                          titleText: 'Password',
-                          
-                          
-                        ),
-                        const SizedBox(height: 15),
-                        PwField(
-                          controller: confirmPasswordController,
-                          hintText: 'Confirm Your Password',
-                          titleText: 'Confirm Password',
-                        ),
-                        const SizedBox(height: 40),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: RoundedSmallButton(
-                            onTap: onSignUp,
-                            label: 'Done',
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        RichText(
-                            text: TextSpan(
-                          text: "Already have an account? ",
+                        TextSpan(
+                          text: 'Login',
                           style: const TextStyle(
-                            color: Pallete.backgroundColor,
+                            color: Pallete.pinkColor,
                             fontSize: 16,
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Login',
-                              style: const TextStyle(
-                                color: Pallete.pinkColor,
-                                fontSize: 16,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    LoginView.route(),
-                                  );
-                                },
-                            ),
-                          ],
-                        )),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                LoginView.route(),
+                              );
+                            },
+                        ),
                       ],
-                    ),
-                  ),
+                    )),
+                  ],
                 ),
               ),
             ),
