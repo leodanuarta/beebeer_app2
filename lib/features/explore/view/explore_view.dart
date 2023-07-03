@@ -45,8 +45,6 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
                 contentPadding: const EdgeInsets.all(10).copyWith(
                   left: 20,
                 ),
-                // border: const OutlineInputBorder(),
-
                 // untuk pengaturan warna di searchbar
                 fillColor: Pallete.searchBarColor,
                 filled: true,
