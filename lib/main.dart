@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
             if (user != null) {
               return const HomeView();
             }
-            return const SignUpView();
+            return const WelcomeView();
           },
           error: (error, st) => ErrorPager(error: error.toString()),
           loading: () => const LoadingPage()),
