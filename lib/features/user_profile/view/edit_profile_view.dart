@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
+import 'package:beebeer_app2/features/user_profile/controller/user_profile_controller.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,10 +19,21 @@ class EditProfileView extends ConsumerStatefulWidget {
 }
 
 class _EditProfileViewState extends ConsumerState<EditProfileView> {
-  final nameController = TextEditingController();
-  final bioController = TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController bioController;
   File? bannerFile;
   File? profileFile;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(
+      text: ref.read(currentUserDetailsProvider).value?.name ?? '',
+    );
+    bioController = TextEditingController(
+      text: ref.read(currentUserDetailsProvider).value?.bio ?? '',
+    );
+  }
 
   @override
   void dispose() {
@@ -51,6 +63,8 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(currentUserDetailsProvider).value;
+    final isLoading = ref.watch(userProfileControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -59,7 +73,19 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              ref
+                  .read(userProfileControllerProvider.notifier)
+                  .updateUserProfile(
+                    userModel: user!.copyWith(
+                      bio: bioController.text,
+                      name: nameController.text,
+                    ),
+                    context: context,
+                    bannerFile: bannerFile,
+                    profileFile: profileFile,
+                  );
+            },
             child: const Text(
               'Save',
               style: TextStyle(color: Pallete.pinkColor),
@@ -67,7 +93,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
           ),
         ],
       ),
-      body: user == null
+      body: isLoading || user == null
           ? const Loader()
           : Column(
               children: [
@@ -103,13 +129,16 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                         left: 20,
                         child: GestureDetector(
                           onTap: selectProfileImage,
-                          child: profileFile!=null? CircleAvatar(
-                            backgroundImage: FileImage(profileFile!),
-                            radius: 40,
-                          ) : CircleAvatar(
-                            backgroundImage: NetworkImage(user.profilePic),
-                            radius: 40,
-                          ),
+                          child: profileFile != null
+                              ? CircleAvatar(
+                                  backgroundImage: FileImage(profileFile!),
+                                  radius: 40,
+                                )
+                              : CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(user.profilePic),
+                                  radius: 40,
+                                ),
                         ),
                       ),
                     ],

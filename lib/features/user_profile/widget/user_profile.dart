@@ -37,7 +37,10 @@ class UserProfile extends ConsumerWidget {
                           ? Container(
                               color: Pallete.pinkColor,
                             )
-                          : Image.network(user.bannerPic),
+                          : Image.network(
+                              user.bannerPic,
+                              fit: BoxFit.fitWidth,
+                            ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -58,7 +61,9 @@ class UserProfile extends ConsumerWidget {
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                side: BorderSide(color: Pallete.whiteColor),
+                                side: const BorderSide(
+                                  color: Pallete.whiteColor,
+                                ),
                               ),
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20)),
