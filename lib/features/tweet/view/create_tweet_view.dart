@@ -75,17 +75,34 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
             color: Pallete.pinkColor,
           ),
         ),
-        actions: [
-          RoundedSmallButton(
-            onTap: shareTweet,
-            label: 'Beepost',
-            backgroundColor: Pallete.pinkColor,
-            textColor: Pallete.whiteColor,
+        // actions: [
+        //   RoundedSmallButton(
+        //     onTap: shareTweet,
+        //     label: 'Beepost',
+        //     backgroundColor: Pallete.pinkColor,
+        //     textColor: Pallete.whiteColor,
+        //   ),
+        // ],
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: shareTweet,
+              child: const Icon(
+                Icons.send,
+                size: 26.0,
+              ),
+            ),
           ),
         ],
+        actionsIconTheme: const IconThemeData(
+          size: 30.0,
+          color: Pallete.pinkColor,
+          // opacity: 100.0,
+        ),
       ),
       // body: isLoading || currentUser != null
-      body: currentUser == null
+      body: isLoading || currentUser == null
           ? const Loader()
           : SafeArea(
               child: SingleChildScrollView(
