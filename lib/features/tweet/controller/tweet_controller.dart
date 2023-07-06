@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:beebeer_app2/apis/notifications_api.dart';
 import 'package:beebeer_app2/apis/storage_api.dart';
 import 'package:beebeer_app2/apis/tweet_api.dart';
+import 'package:beebeer_app2/core/enums/notification_type_enum.dart';
 import 'package:beebeer_app2/core/enums/tweet_type_enum.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
+import 'package:beebeer_app2/features/notifications/controller/notification_controller.dart';
 import 'package:beebeer_app2/models/tweet_model.dart';
 import 'package:beebeer_app2/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,8 @@ final tweetControllerProvider = StateNotifierProvider<TweetController, bool>(
       ref: ref,
       tweetAPI: ref.watch(tweetAPIProvider),
       storageAPI: ref.watch(storageAPIProvider),
+      notificationController:
+          ref.watch(notificationControllerProvider.notifier),
     );
   },
 );
@@ -44,14 +49,17 @@ final getTweetByIdProvider = FutureProvider.family((ref, String id) async {
 class TweetController extends StateNotifier<bool> {
   final TweetAPI _tweetAPI;
   final StorageAPI _storageAPI;
+  final NotificationController _notificationController;
   final Ref _ref;
   TweetController({
     required Ref ref,
     required TweetAPI tweetAPI,
     required StorageAPI storageAPI,
+    required NotificationController notificationController,
   })  : _ref = ref,
         _tweetAPI = tweetAPI,
         _storageAPI = storageAPI,
+        _notificationController = notificationController,
         super(false);
 
   Future<List<Tweet>> getTweets() async {
@@ -75,7 +83,14 @@ class TweetController extends StateNotifier<bool> {
 
     tweet = tweet.copyWith(likes: likes);
     final res = await _tweetAPI.likeTweet(tweet);
-    res.fold((l) => null, (r) => null);
+    res.fold((l) => null, (r) {
+      _notificationController.createNotification(
+        text: '${user.name} liked your beepost!',
+        postId: tweet.id,
+        notificationType: NotificationType.like,
+        uid: tweet.uid,
+      );
+    });
   }
 
   void reshareTweet(
