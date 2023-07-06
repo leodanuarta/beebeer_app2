@@ -9,6 +9,7 @@ import 'package:beebeer_app2/features/tweet/view/beebeer_reply_view.dart';
 import 'package:beebeer_app2/features/tweet/widgets/carousel_image.dart';
 import 'package:beebeer_app2/features/tweet/widgets/hastag_text.dart';
 import 'package:beebeer_app2/features/tweet/widgets/tweet_icon_button.dart';
+import 'package:beebeer_app2/features/user_profile/view/user_profile_view.dart';
 import 'package:beebeer_app2/models/tweet_model.dart';
 import 'package:beebeer_app2/theme/pallete.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,17 @@ class TweetCard extends ConsumerWidget {
                         children: [
                           Container(
                             margin: const EdgeInsets.all(10),
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(user.profilePic),
-                              radius: 35,
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                  context, 
+                                  UserProfileView.route(user),
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(user.profilePic),
+                                radius: 35,
+                              ),
                             ),
                           ),
                           Expanded(
