@@ -1,4 +1,6 @@
+import 'package:beebeer_app2/features/tweet/view/hastag_view.dart';
 import 'package:beebeer_app2/theme/pallete.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HashtagText extends StatelessWidget {
@@ -22,6 +24,12 @@ class HashtagText extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
+            recognizer:  TapGestureRecognizer()..onTap = (){
+              Navigator.push(
+                context, 
+                HashtagView.route(element),
+              );
+            },
           ),
         );
       } else if (element.startsWith('www.') || element.startsWith('https://')) {
