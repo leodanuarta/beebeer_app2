@@ -55,7 +55,15 @@ class UserProfile extends ConsumerWidget {
                       child: OutlinedButton(
                           onPressed: () {
                             if (currentUser.uid == user.uid) {
+                              // edit profile
                               Navigator.push(context, EditProfileView.route());
+                            } else {
+                              ref
+                                  .read(userProfileControllerProvider.notifier)
+                                  .followUser(
+                                      user: user,
+                                      context: context,
+                                      currentUser: currentUser);
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -70,7 +78,9 @@ class UserProfile extends ConsumerWidget {
                           child: Text(
                               currentUser.uid == user.uid
                                   ? 'Edit Profile'
-                                  : 'Follow',
+                                  : currentUser.following.contains(user.uid)
+                                      ? 'Unfollow'
+                                      : 'Follow',
                               style:
                                   const TextStyle(color: Pallete.whiteColor))),
                     ),
