@@ -70,7 +70,8 @@ class NotificationAPI implements INotificationAPI {
 
   @override
   Stream<RealtimeMessage> getLatestNotifacition() {
-    // TODO: implement getLatestNotifacition
-    throw UnimplementedError();
+    return _realtime.subscribe([
+      'databases.${AppwriteConstants.databaseId}.collections.${AppwriteConstants.notificationsCollection}.documents'
+    ]).stream;
   }
 }
