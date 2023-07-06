@@ -14,7 +14,13 @@ class NotificationView extends ConsumerWidget {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: const Text(
+          'Notifications',
+          style: TextStyle(
+            color: Colors.black, // Mengatur warna teks menjadi hitam
+          ),
+        ),
+        centerTitle: true, // Mengatur judul menjadi ditengah
       ),
       body: currentUser == null
           ? const Loader()
