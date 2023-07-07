@@ -21,7 +21,6 @@ class NotificationView extends ConsumerWidget {
             color: Colors.black, // Mengatur warna teks menjadi hitam
           ),
         ),
-        centerTitle: true, // Mengatur judul menjadi ditengah
       ),
       body: currentUser == null
           ? const Loader()
@@ -32,11 +31,11 @@ class NotificationView extends ConsumerWidget {
                           if (data.events.contains(
                             'databases.*.collections.${AppwriteConstants.notificationsCollection}.documents.*.create',
                           )) {
-                            final latestNotif  = 
+                            final latestNotif =
                                 model.Notification.fromMap(data.payload);
-                            if(latestNotif.uid == currentUser.uid){
+                            if (latestNotif.uid == currentUser.uid) {
                               notifications.insert(0, latestNotif);
-                              }
+                            }
                           }
 
                           return ListView.builder(

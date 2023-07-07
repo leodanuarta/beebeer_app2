@@ -5,9 +5,6 @@ import 'package:beebeer_app2/core/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 
-// want to signup, want to get user account -> Account
-// want to access the user related data -> model.Account
-
 final authAPIProvider = Provider((ref) {
   final account = ref.watch(appwriteAccountProvider);
   return AuthAPI(account: account);
@@ -48,45 +45,59 @@ class AuthAPI implements IAuthAPI {
   }) async {
     try {
       final account = await _account.create(
-          userId: ID.unique(), email: email, password: password);
+        userId: ID.unique(),
+        email: email,
+        password: password,
+      );
       return right(account);
     } on AppwriteException catch (e, stackTrace) {
       return left(
-          Failure(e.message ?? 'Some unexpected error occured', stackTrace));
+        Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
+      );
     } catch (e, stackTrace) {
-      return left(Failure(e.toString(), stackTrace));
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
     }
   }
 
   @override
-  FutureEither<model.Session> login(
-      {required String email, required String password}) async {
+  FutureEither<model.Session> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final session =
-          await _account.createEmailSession(email: email, password: password);
-      return right(session);
-    } on AppwriteException catch (e, stackTrace) {
-      return left(
-          Failure(e.message ?? 'Some unexpected error occured', stackTrace));
-    } catch (e, stackTrace) {
-      return left(Failure(e.toString(), stackTrace));
-    }
-  }
-  
-  @override
-  FutureEitherVoid logout() {
-    // TODO: implement logout
-    try {
-      await _account.deleteSessions(
-        email: email, 
-        password: password
+      final session = await _account.createEmailSession(
+        email: email,
+        password: password,
       );
       return right(session);
     } on AppwriteException catch (e, stackTrace) {
       return left(
-          Failure(e.message ?? 'Some unexpected error occured', stackTrace));
+        Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
+      );
     } catch (e, stackTrace) {
-      return left(Failure(e.toString(), stackTrace));
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
+    }
+  }
+
+  @override
+  FutureEitherVoid logout() async {
+    try {
+      await _account.deleteSession(
+        sessionId: 'current',
+      );
+      return right(null);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(
+        Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
+      );
+    } catch (e, stackTrace) {
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
     }
   }
 }

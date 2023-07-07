@@ -3,6 +3,7 @@ import 'package:beebeer_app2/apis/auth_api.dart';
 import 'package:beebeer_app2/apis/user_api.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/view/login_view.dart';
+import 'package:beebeer_app2/features/auth/view/signup_view.dart';
 import 'package:beebeer_app2/features/home/view/home_view.dart';
 import 'package:beebeer_app2/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -99,5 +100,16 @@ class AuthController extends StateNotifier<bool> {
     final document = await _userAPI.getUserData(uid);
     final updatedUser = UserModel.fromMap(document.data);
     return updatedUser;
+  }
+
+  void logout(BuildContext context) async {
+    final res = await _authAPI.logout();
+    res.fold((l) => null, (r) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        SignUpView.route(),
+        (route) => false,
+      );
+    });
   }
 }
