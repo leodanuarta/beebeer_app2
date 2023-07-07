@@ -23,6 +23,7 @@ abstract class IAuthAPI {
     required String password,
   });
   Future<model.Account?> currentUserAccount();
+  FutureEitherVoid logout();
 }
 
 class AuthAPI implements IAuthAPI {
@@ -63,6 +64,23 @@ class AuthAPI implements IAuthAPI {
     try {
       final session =
           await _account.createEmailSession(email: email, password: password);
+      return right(session);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(
+          Failure(e.message ?? 'Some unexpected error occured', stackTrace));
+    } catch (e, stackTrace) {
+      return left(Failure(e.toString(), stackTrace));
+    }
+  }
+  
+  @override
+  FutureEitherVoid logout() {
+    // TODO: implement logout
+    try {
+      await _account.deleteSessions(
+        email: email, 
+        password: password
+      );
       return right(session);
     } on AppwriteException catch (e, stackTrace) {
       return left(

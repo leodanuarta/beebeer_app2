@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:beebeer_app2/common/common.dart';
+import 'package:beebeer_app2/constants/assets_constants.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
 import 'package:beebeer_app2/features/tweet/widgets/tweet_card.dart';
 import 'package:beebeer_app2/features/user_profile/controller/user_profile_controller.dart';
@@ -10,6 +11,7 @@ import 'package:beebeer_app2/models/user_model.dart';
 import 'package:beebeer_app2/theme/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
 class UserProfile extends ConsumerWidget {
   final UserModel user;
@@ -90,10 +92,19 @@ class UserProfile extends ConsumerWidget {
                   padding: const EdgeInsets.all(8),
                   sliver: SliverList(
                       delegate: SliverChildListDelegate([
-                    Text(
-                      user.name,
-                      style: const TextStyle(
-                          fontSize: 25, fontWeight: FontWeight.bold),
+                    Row(
+                      children: [
+                        Text(
+                          user.name,
+                          style: const TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                        if(user.isTwitterBlue)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: SvgPicture.asset(AssetsConstants.verifiedIcon),
+                        ),
+                      ],
                     ),
                     Text(
                       '@${user.name}',

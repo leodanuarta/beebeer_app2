@@ -160,7 +160,7 @@ class TweetAPI implements ITweetAPI {
       databaseId: AppwriteConstants.databaseId,
       collectionId: AppwriteConstants.tweetsCollection,
       queries: [
-        Query.search('hashtag', hashtag),
+        Query.search('hashtags', hashtag),
       ],
     );
     return documents.documents;

@@ -1,4 +1,5 @@
 import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/features/home/widgets/side_drawer.dart';
 import 'package:beebeer_app2/features/tweet/view/create_tweet_view.dart';
 import 'package:beebeer_app2/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,6 +46,7 @@ class _HomeViewState extends State<HomeView> {
           size: 28,
         ),
       ),
+      drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChange,
