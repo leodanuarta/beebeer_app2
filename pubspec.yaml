@@ -45,6 +45,16 @@ dependencies:
   timeago: ^3.3.0
   any_link_preview: ^3.0.0
   like_button: ^2.0.5
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/svg/splash_beebeerIcon.png
+  android_12:
+    color: "#FFFFFF"
+    image: assets/svg/splash_beebeerIcon.png
+    icon_background_color: "#FFFFFF"
+  
 
 dev_dependencies:
   flutter_test:

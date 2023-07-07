@@ -8,6 +8,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 class UIConstants {
   static AppBar appBar() {
     return AppBar(
+      // leading: IconButton(
+      //   icon: const Icon(
+      //     Icons.menu,
+      //     color: Pallete.pinkColor, // Replace Colors.red with the desired color
+      //   ),
+      //   onPressed: () {
+      //     // Scaffold.of(context).openDrawer(); // Open the drawer
+      //   },
+      // ),
       title: SvgPicture.asset(
         AssetsConstants.beebeerLogoL,
         height: 30,
