@@ -43,16 +43,6 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
         );
     Navigator.pop(context);
   }
-  // void shareTweet() {
-  //   ref.read(tweetControllerProvider.notifier).shareTweet(
-  //         images: images,
-  //         text: tweetTextController.text,
-  //         context: context,
-  //         repliedTo: '',
-  //         repliedToUserId: '',
-  //       );
-  //   Navigator.pop(context);
-  // }
 
   void onPickImages() async {
     images = await pickImages();
@@ -73,16 +63,9 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           icon: const Icon(
             Icons.close,
             size: 30,
-            color: Pallete.pinkColor,
+            color: Pallete.whiteColor,
           ),
         ),
-        // actions: [
-        //   RoundedSmallButton(
-        //     onTap: shareTweet,
-        //     label: 'Beepost',
-        //     backgroundColor: Pallete.pinkColor,
-        //     textColor: Pallete.whiteColor,
-        //   ),
         // ],
         actions: <Widget>[
           Padding(
@@ -96,67 +79,95 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
             ),
           ),
         ],
+        // actions: <Widget>[
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 20.0, bottom: 10, top: 5),
+        //     child: GestureDetector(
+        //       onTap: shareTweet,
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //           color: Pallete
+        //               .whiteColor, // Replace Colors.black with your desired border color
+        //           borderRadius: BorderRadius.circular(25),
+        //         ),
+        //         padding: const EdgeInsets.all(10.0),
+        //         child: const Text(
+        //           '  Beepost  ',
+        //           style: TextStyle(
+        //             fontSize: 16.0,
+        //             color: Pallete.pinkColor,
+        //             fontWeight: FontWeight.bold,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
         actionsIconTheme: const IconThemeData(
           size: 30.0,
-          color: Pallete.pinkColor,
-          // opacity: 100.0,
+          color: Pallete.whiteColor,
         ),
       ),
       // body: isLoading || currentUser != null
       body: isLoading || currentUser == null
           ? const Loader()
           : SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(currentUser.profilePic),
-                          // backgroundImage: NetworkImage(
-                          //     'https://nationaltoday.com/wp-content/uploads/2020/02/doggy-date-night.jpg.webp'),
-                          radius: 30,
-                        ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: TextField(
-                            controller: tweetTextController,
-                            style: const TextStyle(
-                              fontSize: 22,
-                            ),
-                            decoration: const InputDecoration(
-                              hintText: "What's happening?",
-                              hintStyle: TextStyle(
-                                color: Pallete.greyColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(currentUser.profilePic),
+                            radius: 30,
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: TextField(
+                              controller: tweetTextController,
+                              style: const TextStyle(
                                 fontSize: 22,
-                                fontWeight: FontWeight.w600,
                               ),
-                              border: InputBorder.none,
+                              decoration: const InputDecoration(
+                                hintText: "What's happening?",
+                                hintStyle: TextStyle(
+                                  color: Pallete.greyColor,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                border: InputBorder.none,
+                              ),
+                              maxLines: null,
                             ),
-                            maxLines: null,
+                          ),
+                        ],
+                      ),
+                      if (images.isNotEmpty)
+                        CarouselSlider(
+                          items: images.map(
+                            (file) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 5,
+                                ),
+                                child: Image.file(file),
+                              );
+                            },
+                          ).toList(),
+                          options: CarouselOptions(
+                            height: 400,
+                            enableInfiniteScroll: false,
                           ),
                         ),
-                      ],
-                    ),
-                    if (images.isNotEmpty)
-                      CarouselSlider(
-                        items: images.map(
-                          (file) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                              ),
-                              child: Image.file(file),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          height: 400,
-                          enableInfiniteScroll: false,
-                        ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

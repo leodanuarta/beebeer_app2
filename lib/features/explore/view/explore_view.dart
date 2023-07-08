@@ -32,25 +32,31 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: SizedBox(
-          height: 50,
-          child: TextField(
-            controller: searchController,
-            onSubmitted: (value) {
-              setState(() {
-                isShowUser = true;
-              });
-            },
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10).copyWith(
-                  left: 20,
-                ),
-                // untuk pengaturan warna di searchbar
-                fillColor: Pallete.searchBarColor,
-                filled: true,
-                enabledBorder: appBarTextFieldBorder,
-                focusedBorder: appBarTextFieldBorder,
-                hintText: 'Search Beebeer'),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          child: SizedBox(
+            height: 50,
+            child: TextField(
+              controller: searchController,
+              onSubmitted: (value) {
+                setState(() {
+                  isShowUser = true;
+                });
+              },
+              decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(10).copyWith(
+                    left: 20,
+                    top: 5,
+                    right: 10,
+                    bottom: 20,
+                  ),
+                  // untuk pengaturan warna di searchbar
+                  fillColor: Pallete.searchBarColor,
+                  filled: true,
+                  enabledBorder: appBarTextFieldBorder,
+                  focusedBorder: appBarTextFieldBorder,
+                  hintText: 'Search Beebeer'),
+            ),
           ),
         ),
       ),

@@ -18,7 +18,7 @@ class NotificationView extends ConsumerWidget {
         title: const Text(
           'Notifications',
           style: TextStyle(
-            color: Colors.black, // Mengatur warna teks menjadi hitam
+            color: Colors.white, // Mengatur warna teks menjadi hitam
           ),
         ),
       ),
