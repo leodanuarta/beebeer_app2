@@ -15,6 +15,7 @@ void main() {
   runApp(
     const ProviderScope(child: MyApp()),
   );
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends ConsumerWidget {
