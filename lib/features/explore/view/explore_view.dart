@@ -32,6 +32,7 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
     );
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(bottom: 10, top: 5),
           child: SizedBox(

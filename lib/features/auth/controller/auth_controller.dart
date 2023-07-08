@@ -3,7 +3,7 @@ import 'package:beebeer_app2/apis/auth_api.dart';
 import 'package:beebeer_app2/apis/user_api.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/view/login_view.dart';
-import 'package:beebeer_app2/features/auth/view/signup_view.dart';
+import 'package:beebeer_app2/features/auth/view/welcome_view.dart';
 import 'package:beebeer_app2/features/home/view/home_view.dart';
 import 'package:beebeer_app2/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +107,7 @@ class AuthController extends StateNotifier<bool> {
     res.fold((l) => null, (r) {
       Navigator.pushAndRemoveUntil(
         context,
-        SignUpView.route(),
+        WelcomeView.route(),
         (route) => false,
       );
     });
