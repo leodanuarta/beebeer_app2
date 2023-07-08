@@ -1,11 +1,11 @@
 class AssetsConstants {
   static const String _svgPath = 'assets/svg';
   static const String twitterLogo = '$_svgPath/twitter_logo.svg';
-  static const String homeFilledIcon = '$_svgPath/home_filled.svg';
-  static const String homeOutlinedIcon = '$_svgPath/home_outlined.svg';
+  static const String homeFilledIcon = '$_svgPath/house-heart-fill.svg';
+  static const String homeOutlinedIcon = '$_svgPath/house-heart.svg';
   static const String notifFilledIcon = '$_svgPath/notif_filled.svg';
   static const String notifOutlinedIcon = '$_svgPath/notif_outlined.svg';
-  static const String searchIcon = '$_svgPath/search.svg';
+  static const String searchIcon = '$_svgPath/search-heart.svg';
   static const String gifIcon = '$_svgPath/gif.svg';
   static const String emojiIcon = '$_svgPath/emoji.svg';
   static const String galleryIcon = '$_svgPath/gallery.svg';
@@ -17,4 +17,5 @@ class AssetsConstants {
   static const String verifiedIcon = '$_svgPath/verified.svg';
   static const String beebeerLogoL = '$_svgPath/beebeerlogoL.svg';
   static const String beebeerIcon = '$_svgPath/beebeerIcon.svg';
+  static const String searchIconBold = '$_svgPath/search-heart-fill.svg';
 }

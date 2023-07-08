@@ -70,11 +70,13 @@ class UserProfile extends ConsumerWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(50),
                                 side: const BorderSide(
                                   color: Pallete.whiteColor,
                                 ),
                               ),
+                              backgroundColor:
+                                  Pallete.greyColor.withOpacity(0.5),
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20)),
                           child: Text(
@@ -83,8 +85,9 @@ class UserProfile extends ConsumerWidget {
                                   : currentUser.following.contains(user.uid)
                                       ? 'Unfollow'
                                       : 'Follow',
-                              style:
-                                  const TextStyle(color: Pallete.whiteColor))),
+                              style: const TextStyle(
+                                color: Pallete.whiteColor,
+                              ))),
                     ),
                   ]),
                 ),
@@ -99,11 +102,12 @@ class UserProfile extends ConsumerWidget {
                           style: const TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        if(user.isTwitterBlue)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
-                          child: SvgPicture.asset(AssetsConstants.verifiedIcon),
-                        ),
+                        if (user.isTwitterBlue)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 3.0),
+                            child:
+                                SvgPicture.asset(AssetsConstants.verifiedIcon),
+                          ),
                       ],
                     ),
                     Text(
