@@ -65,12 +65,18 @@ class _HomeViewState extends State<HomeView> {
                   ? AssetsConstants.homeFilledIcon
                   : AssetsConstants.homeOutlinedIcon,
               color: Pallete.pinkColor,
+              height: 24,
+              width: 24,
             ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              AssetsConstants.searchIcon,
+              _page == 1
+                  ? AssetsConstants.searchIconBold
+                  : AssetsConstants.searchIcon,
               color: Pallete.pinkColor,
+              height: 24,
+              width: 24,
             ),
           ),
           BottomNavigationBarItem(
