@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.beebeer_app2">
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
-        android:label="beebeer_app2"
+        android:label="Beebeer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

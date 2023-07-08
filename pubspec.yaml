@@ -1,5 +1,6 @@
 name: beebeer_app2
 description: A new Flutter project.
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -19,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=2.18.6 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,13 +38,23 @@ dependencies:
   cupertino_icons: ^1.0.2
   appwrite: ^8.2.0
   flutter_svg: ^1.1.6
-  flutter_riverpod: ^2.3.6
+  flutter_riverpod: ^2.1.3
   fpdart: ^0.4.0
   image_picker: ^0.8.6+1
   carousel_slider: ^4.2.1
   timeago: ^3.3.0
   any_link_preview: ^3.0.0
   like_button: ^2.0.5
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/svg/splash_beebeerIcon.png
+  android_12:
+    color: "#FFFFFF"
+    image: assets/svg/splash_beebeerIcon.png
+    icon_background_color: "#FFFFFF"
+  
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +109,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
   fonts:
     - family: Raleway
       fonts:
