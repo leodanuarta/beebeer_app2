@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:beebeer_app2/common/common.dart';
 import 'package:beebeer_app2/core/utils.dart';
 import 'package:beebeer_app2/features/auth/controller/auth_controller.dart';
@@ -69,26 +70,36 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       appBar: AppBar(
         title: const Text(
           'Edit Profile',
-          style: TextStyle(color: Pallete.backgroundColor),
+          style: TextStyle(color: Pallete.whiteColor),
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              ref
-                  .read(userProfileControllerProvider.notifier)
-                  .updateUserProfile(
-                    userModel: user!.copyWith(
-                      bio: bioController.text,
-                      name: nameController.text,
-                    ),
-                    context: context,
-                    bannerFile: bannerFile,
-                    profileFile: profileFile,
-                  );
-            },
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Pallete.pinkColor),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(
+              onPressed: () {
+                ref
+                    .read(userProfileControllerProvider.notifier)
+                    .updateUserProfile(
+                      userModel: user!.copyWith(
+                        bio: bioController.text,
+                        name: nameController.text,
+                      ),
+                      context: context,
+                      bannerFile: bannerFile,
+                      profileFile: profileFile,
+                    );
+              },
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  side: const BorderSide(color: Pallete.whiteColor),
+                ),
+                backgroundColor: Pallete.whiteColor,
+              ),
+              child: const Text(
+                '  Save  ',
+                style: TextStyle(color: Pallete.pinkColor),
+              ),
             ),
           ),
         ],

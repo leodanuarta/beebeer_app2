@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _page == 0 ? appBar : null,
+      appBar: _page == 0 ? appBar : (null),
       body: IndexedStack(
         index: _page,
         children: UIConstants.bottomTabBarPages,
@@ -46,13 +46,6 @@ class _HomeViewState extends State<HomeView> {
           size: 28,
         ),
       ),
-      // drawer: Theme(
-      //   data: Theme.of(context).copyWith(
-      //     iconTheme: const IconThemeData(
-      //         color: Colors.red), // Ganti warna hamburger icon di sini
-      //   ),
-      // child: const SideDrawer(),
-      // ),
       drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,

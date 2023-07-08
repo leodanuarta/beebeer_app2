@@ -12,40 +12,43 @@ class SearchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        Navigator.push(
-          context,
-          UserProfileView.route(userModel),
-        );
-      },
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(userModel.profilePic),
-        radius: 30,
-      ),
-      title: Text(
-        userModel.name,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: ListTile(
+        onTap: () {
+          Navigator.push(
+            context,
+            UserProfileView.route(userModel),
+          );
+        },
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(userModel.profilePic),
+          radius: 30,
         ),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '@${userModel.name}',
-            style: const TextStyle(
-              fontSize: 16,
-            ),
+        title: Text(
+          userModel.name,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
-          Text(
-            userModel.bio,
-            style: const TextStyle(
-              color: Pallete.backgroundColor,
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '@${userModel.name}',
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
-          ),
-        ],
+            Text(
+              userModel.bio,
+              style: const TextStyle(
+                color: Pallete.backgroundColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

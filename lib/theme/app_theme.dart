@@ -6,9 +6,9 @@ class AppTheme {
   static ThemeData theme = ThemeData.light().copyWith(
     // scaffoldBackgroundColor: Pallete.backgroundColor,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Pallete.whiteColor,
+      backgroundColor: Pallete.pinkColor,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Pallete.whiteColor,
+        statusBarColor: Pallete.pinkColor,
 
         // Status bar brightness (optional)
         statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
