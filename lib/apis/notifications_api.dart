@@ -32,7 +32,7 @@ class NotificationAPI implements INotificationAPI {
     try {
       await _db.createDocument(
         databaseId: AppwriteConstants.databaseId,
-        collectionId: AppwriteConstants.usersCollection,
+        collectionId: AppwriteConstants.notificationsCollection,
         documentId: ID.unique(),
         data: notification.toMap(),
       );

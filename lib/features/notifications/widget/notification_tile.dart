@@ -2,8 +2,8 @@ import 'package:beebeer_app2/theme/pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:beebeer_app2/models/notification_model.dart' as model;
 import 'package:flutter_svg/svg.dart';
-import '../../../constants/constants.dart';
-import '../../../core/enums/notification_type_enum.dart';
+import 'package:beebeer_app2/constants/constants.dart';
+import 'package:beebeer_app2/core/enums/notification_type_enum.dart';
 
 
 class NotificationTile extends StatelessWidget {
@@ -30,7 +30,7 @@ class NotificationTile extends StatelessWidget {
               : notification.notificationType == NotificationType.retweet
                   ? SvgPicture.asset(
                       AssetsConstants.retweetIcon,
-                      color: Pallete.whiteColor,
+                      color: Pallete.pinkColor,
                       height: 20,
                     )
                   : null,
